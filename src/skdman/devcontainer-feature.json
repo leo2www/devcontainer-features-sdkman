@@ -1,0 +1,53 @@
+{
+    "id": "scala-skdman",
+    "version": "0.2.0",
+    "name": "Scala (via SDKMAN!)",
+    "documentationURL": "https://github.com/leo2www/devcontainer-features-sdkman/tree/main/src/scala-skdman",
+    "description": "Provides Scala, JDK, and SBT through SDKMAN with optimized caching",
+    "options": {
+      "scalaVersion": {
+        "type": "string",
+        "proposals": [
+          "latest",
+          "2.13",
+          "2.12"
+        ],
+        "default": "latest",
+        "description": "Scala version (use SDKMAN format)"
+      },
+      "specificJavaVersion": {
+            "type": "string",
+            "proposals": [
+              "latest",
+              "21-amzn",
+              "17", 
+              "11"
+            ],
+            "default": "21-amzn",
+            "description": "Select or enter a JDK version to install, styled as command `sdkman java ${specificJavaVersion}`"
+      },
+      "installSbt": {
+        "type": "boolean",
+        "default": false,
+        "description": "Install SBT build tool"
+      },
+      "sbtVersion": {
+        "type": "string",
+        "proposals": [
+          "latest",
+          "1.9.0"
+        ],
+        "default": "latest",
+        "description": "Select or enter SBT version to install"
+      }
+    },
+    "containerEnv": {
+      "SDKMAN_DIR": "/usr/local/sdkman",
+      "JAVA_HOME": "${SDKMAN_DIR}/candidates/java/current",
+      "SCALA_HOME": "${SDKMAN_DIR}/candidates/scala/current",
+      "PATH": "${SDKMAN_DIR}/bin:${JAVA_HOME}/bin:${SCALA_HOME}/bin:${PATH}"
+    },
+    "installsAfter": [
+      "ghcr.io/devcontainers/features/common-utils"
+    ]
+  }
