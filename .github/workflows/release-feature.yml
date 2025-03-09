@@ -28,7 +28,7 @@ jobs:
             uses: actions/setup-node@v4
             with:
                 node-version: 20
-                cache: npm
+                # cache: npm # npm项目才需要全局包缓存
         
         -   name: 安装开发容器命令行 | Install DevContainer CLI
             run:  npm install -g @devcontainers/cli
