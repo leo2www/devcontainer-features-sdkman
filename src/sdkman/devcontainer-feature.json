@@ -1,8 +1,8 @@
 {
-    "id": "scala-skdman",
+    "id": "scala-sdkman",
     "version": "0.2.0",
     "name": "Scala (via SDKMAN!)",
-    "documentationURL": "https://github.com/leo2www/devcontainer-features-sdkman/tree/main/src/scala-skdman",
+    "documentationURL": "https://github.com/leo2www/devcontainer-features-sdkman/tree/main/src/scala-sdkman",
     "description": "Provides Scala, JDK, and SBT through SDKMAN with optimized caching",
     "options": {
       "scalaVersion": {

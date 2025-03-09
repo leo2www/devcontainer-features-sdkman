@@ -1,0 +1,63 @@
+name: 发布开发容器DevContainer feature
+
+on:
+    push:
+        tags:
+            - "v*" # 当推送以 'v' 开头的标签时触发（如 v1.0.0）
+    workflow_dispatch:  # 允许手动触发
+        inputs:
+            version:
+                description: 'Version tag (e.g., 1.0.0-beta)'
+                required: true
+
+jobs:
+    package-and-publish:
+        # 仅提供以下原生 Runner 环境 ubuntu LTS 22.04
+        # win mas
+        runs-on: ubuntu-latest
+        permissions:
+            contents:  read
+            packages:  write # 允许推送包到 GHCR
+        
+        # 检出代码 → 安装 CLI → 打包 → 登录 → 发布
+        steps:
+        -   name: 检出代码到runner | Checkout Code
+            uses: actions/checkout@v4
+        
+        -   name: 安装 Node.js | Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+                node-version: 20
+                cache: npm
+        
+        -   name: 安装开发容器命令行 | Install DevContainer CLI
+            run:  npm install -g @devcontainers/cli
+
+
+        -   name: Override Version for Manual Release
+            if: ${{ github.event_name == 'workflow_dispatch' }}
+            run:  | 
+                echo "原始版本号: $(jq -r '.version' ./src/sdkman/devcontainer-feature.json)"
+                jq ".version = \"${{ github.event.inputs.version }}\"" ./src/sdkman/devcontainer-feature.json > tmp.json
+                mv tmp.json ./src/sdkman/devcontainer-feature.json
+                echo "修改后版本号: $(jq -r '.version' ./src/sdkman/devcontainer-feature.json)"
+    
+
+            # 生成一个压缩包（如 sdkman.tgz），包含 Feature 的所有文件和元数据
+        -   name: 打包feature | Package Feature
+            run:  |
+             devcontainer features package --feature-path ./src/sdkman
+             ls -lh ./src/sdkman  # 确认打包文件生成
+
+        -   name: 登录GHCR |  Login to GHCR
+            uses: docker/login-action@v3
+            with:
+                registry: ghcr.io
+                username: ${{ github.actor}}
+                password: ${{ secrets.GITHUB_TOKEN}}
+
+        -   name: 发布feature | Publish Feature
+            run: devcontainer features publish \
+             --feature-path ./src/sdkman \
+             --registry ghcr.io/${{ github.repository_owner }}/devcontainer-features  
+            

@@ -7,7 +7,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 LIBRARY_SCRIPTS_DIR="${SCRIPT_DIR}/library-scripts"
 # 修复1：使用 Dev Container 的固定源路径
-# LIBRARY_SCRIPTS_DIR="/tmp/build-features-src/scala-skdman_0/library-scripts"
+# LIBRARY_SCRIPTS_DIR="/tmp/build-features-src/scala-sdkman_0/library-scripts"
 
 # 调试路径
 # echo "=== DEBUG ==="
