@@ -46,7 +46,7 @@ jobs:
             # 生成一个压缩包（如 sdkman.tgz），包含 Feature 的所有文件和元数据
         -   name: 打包feature | Package Feature
             run:  |
-             devcontainer features package --feature-path ./src/sdkman
+             devcontainer features package ./src/sdkman 
              ls -lh ./src/sdkman  # 确认打包文件生成
 
         -   name: 登录GHCR |  Login to GHCR
@@ -58,6 +58,6 @@ jobs:
 
         -   name: 发布feature | Publish Feature
             run: devcontainer features publish \
-             --feature-path ./src/sdkman \
+             ./src/sdkman \
              --registry ghcr.io/${{ github.repository_owner }}/devcontainer-features  
             
