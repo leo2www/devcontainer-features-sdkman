@@ -57,8 +57,8 @@ jobs:
                 password: ${{ secrets.GITHUB_TOKEN}}
 
         -   name: 发布feature | Publish Feature
-            run: devcontainer features publish \
-             ./src/sdkman \
+            run:  |
+             devcontainer features publish ./src/sdkman \
              --registry ghcr.io \
-             --namespace ${{ github.repository_owner }}/devcontainer-features  
+             --namespace ${{ github.repository_owner }}/devcontainer-features
             
