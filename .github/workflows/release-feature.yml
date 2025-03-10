@@ -65,7 +65,7 @@ jobs:
 
         # 使用GitHub Fearued Action
         -   name:  发布feature | Publish Features
-            uses:  devcontainers/action@1
+            uses:  devcontainers/action@v1
             with:  
              publish-features: "true"
              base-path-to-features: "./src"
