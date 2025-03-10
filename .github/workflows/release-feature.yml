@@ -7,7 +7,7 @@ on:
     workflow_dispatch:  # 允许手动触发
         inputs:
             version:
-                description: 'Version tag (e.g., 1.0.0-beta)'
+                description: 'Version tag[scala-sdkman] (e.g., 1.0.0-beta)'
                 required: true
 
 jobs:
@@ -38,17 +38,17 @@ jobs:
         -   name: Override Version for Manual Release
             if: ${{ github.event_name == 'workflow_dispatch' }}
             run:  | 
-                echo "原始版本号: $(jq -r '.version' ./src/sdkman/devcontainer-feature.json)"
-                jq ".version = \"${{ github.event.inputs.version }}\"" ./src/sdkman/devcontainer-feature.json > tmp.json
-                mv tmp.json ./src/sdkman/devcontainer-feature.json
-                echo "修改后版本号: $(jq -r '.version' ./src/sdkman/devcontainer-feature.json)"
+                echo "原始版本号: $(jq -r '.version' ./src/scala-sdkman/devcontainer-feature.json)"
+                jq ".version = \"${{ github.event.inputs.version }}\"" ./src/scala-sdkman/devcontainer-feature.json > tmp.json
+                mv tmp.json ./src/scala-sdkman/devcontainer-feature.json
+                echo "修改后版本号: $(jq -r '.version' ./src/scala-sdkman/devcontainer-feature.json)"
     
 
         #     # 生成一个压缩包（如 sdkman.tgz），包含 Feature 的所有文件和元数据
         # -   name: 打包feature | Package Feature
         #     run:  |
-        #      devcontainer features package ./src/sdkman 
-        #      ls -lh ./src/sdkman  # 确认打包文件生成
+        #      devcontainer features package ./src/scala-sdkman 
+        #      ls -lh ./src/scala-sdkman  # 确认打包文件生成
 
         # -   name: 登录GHCR |  Login to GHCR
         #     uses: docker/login-action@v3
@@ -59,7 +59,7 @@ jobs:
 
         # -   name: 发布feature | Publish Feature
         #     run:  |
-        #      devcontainer features publish ./src/sdkman \
+        #      devcontainer features publish ./src/scala-sdkman \
         #      --registry ghcr.io \
         #      --namespace ${{ github.repository_owner }}/devcontainer-features
 
