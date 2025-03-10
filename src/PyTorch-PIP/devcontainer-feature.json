@@ -1,0 +1,26 @@
+{
+    "id": "pytorch-install-pip",
+    "version":"0.1.0",
+    "name": "PyTorch-PIP",
+    "description": "用全局pip3安装pytorch-cuda",
+    "documentationURL": "https://github.com/leo2www/devcontainer-features-sdkman/tree/main/src/PyTorch-PIP",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "cu126",
+                "cu118"
+              ],
+            "default": "cu126",
+            "description": "pytorch网站下载地址字符串替换"
+        }
+    },
+    "containerEnv": {
+            "PYTHON_PATH": "/usr/local/python/current/bin"
+        },
+    "installsAfter":[
+        "ghcr.io/devcontainers/features/common-utils",
+        // 替换为我的python feature
+        // "ghcr.io/devcontainers/features/python:1"
+    ]
+}
